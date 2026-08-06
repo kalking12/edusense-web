@@ -1,0 +1,405 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root {
+  --ink: #16211C;
+  --paper: #EEF0E7;
+  --card: #FFFFFF;
+  --line: #D8D5C7;
+  --muted: #6B7568;
+  --green: #0B6E4F;
+  --green-dark: #084F39;
+  --amber: #E2A33B;
+  --amber-dark: #8A5E17;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Public Sans', sans-serif;
+  line-height: 1.5;
+  padding: 0 0 4rem;
+}
+
+/* ---------- Header / Nav ---------- */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 2.5rem;
+  border-bottom: 1px solid var(--line);
+  background: var(--paper);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: 1.35rem;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.brand .mark {
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  background: var(--green);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.brand .mark::after {
+  content: '';
+  position: absolute;
+  left: 6px;
+  right: 6px;
+  top: 8px;
+  height: 2px;
+  background: var(--amber);
+}
+
+nav {
+  display: flex;
+  gap: 2rem;
+}
+
+nav a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding-bottom: 4px;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+nav a:hover {
+  color: var(--ink);
+}
+
+nav a.active {
+  color: var(--ink);
+  border-bottom-color: var(--green);
+}
+
+/* ---------- Intro section ---------- */
+.intro {
+  padding: 2.5rem 2.5rem 0;
+  max-width: 640px;
+}
+
+.intro .eyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: var(--green-dark);
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+  display: block;
+}
+
+.intro h1 {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 2.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.intro p {
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+/* ---------- Layout ---------- */
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  padding: 2rem 2.5rem 0;
+  align-items: start;
+}
+
+@media (max-width: 860px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.panel-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+/* ---------- Upload card (the desk) ---------- */
+.desk {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 1.75rem;
+}
+
+.dropzone {
+  position: relative;
+  overflow: hidden;
+  border: 2px dashed var(--line);
+  border-radius: 8px;
+  padding: 3rem 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.dropzone:hover {
+  border-color: var(--green);
+  background: #F6F8F3;
+}
+
+.dropzone.processing {
+  border-style: solid;
+  border-color: var(--amber);
+}
+
+.dropzone .icon {
+  width: 44px;
+  height: 44px;
+  margin: 0 auto 1rem;
+  border: 1.5px solid var(--muted);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+}
+
+.dropzone h3 {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 1.15rem;
+  margin-bottom: 0.3rem;
+}
+
+.dropzone p {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.dropzone .filetypes {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-top: 1rem;
+  letter-spacing: 0.03em;
+}
+
+/* Scan sweep animation */
+.scan-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--amber), var(--green), transparent);
+  animation: sweep 1.8s linear infinite;
+  display: none;
+}
+
+.dropzone.processing .scan-line {
+  display: block;
+}
+
+@keyframes sweep {
+  0% {
+    top: 0;
+  }
+  100% {
+    top: calc(100% - 3px);
+  }
+}
+
+.preview-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line);
+}
+
+.thumb {
+  width: 56px;
+  height: 56px;
+  border-radius: 6px;
+  background: #DCE3D9;
+  border: 1px solid var(--line);
+  flex-shrink: 0;
+  background-image: repeating-linear-gradient(45deg, #DCE3D9, #DCE3D9 4px, #D2DACE 4px, #D2DACE 8px);
+}
+
+.file-meta {
+  flex: 1;
+  min-width: 0;
+}
+
+.file-meta .name {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.file-meta .size {
+  font-size: 0.8rem;
+  color: var(--muted);
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+button {
+  font-family: 'Public Sans', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 7px;
+  padding: 0.7rem 1.1rem;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.btn-primary {
+  background: var(--green);
+  color: #fff;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-primary:hover {
+  background: var(--green-dark);
+}
+
+.btn-ghost {
+  background: transparent;
+  border-color: var(--line);
+  color: var(--ink);
+}
+
+.btn-ghost:hover {
+  border-color: var(--muted);
+}
+
+/* ---------- Result card (the page) ---------- */
+.the-page {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 1.75rem;
+  position: relative;
+}
+
+.the-page::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 22px;
+  bottom: 22px;
+  width: 4px;
+  background: var(--amber);
+  border-radius: 0 3px 3px 0;
+}
+
+.the-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.the-page-header h3 {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 1.15rem;
+}
+
+.status-pill {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  background: #E9F2EC;
+  color: var(--green-dark);
+  border: 1px solid #C9DED0;
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+}
+
+.extracted {
+  background: #FAFAF6;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 1rem 1.1rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.88rem;
+  color: #2B352E;
+  line-height: 1.7;
+  max-height: 280px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+}
+
+.result-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.btn-amber {
+  background: var(--amber);
+  color: #3A2705;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-amber:hover {
+  background: #D3921F;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 3.5rem 1.5rem;
+  color: var(--muted);
+}
+
+.empty-state .glyph {
+  font-family: 'Fraunces', serif;
+  font-size: 2rem;
+  color: var(--line);
+  margin-bottom: 0.75rem;
+}
+
+.empty-state p {
+  font-size: 0.9rem;
+  max-width: 220px;
+}

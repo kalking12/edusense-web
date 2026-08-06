@@ -1,0 +1,1 @@
+ALTER TABLE `ocr_documents` ADD `userId` int NOT NULL;
